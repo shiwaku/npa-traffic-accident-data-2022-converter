@@ -1,57 +1,154 @@
 # npa-traffic-accident-data-2022-converter
-## プログラムについて
-- 本プログラムは、警察庁が公開している、[交通事故統計情報のオープンデータ（2022年）の本票](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/2022/opendata_2022.html)を[コード表](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/2022/opendata_2022.html)を元に読みやすいデータ（GISデータ）に変換するプログラムになります。
-- Pythonで構築
 
-### csvfile-to-degree.py
-- 本票CSVファイル（2022年）の「地点　緯度（北緯）」と「地点　経度（東経）」を十進法度単位に変換するプログラムになります。
-- 文字コードをUTF-8に変換します。
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/deed.ja)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 
-#### 使用データ
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/data/honhyo_2022.csv`,62.8MB
+警察庁が公開している[交通事故統計情報のオープンデータ](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/index_opendata.html)の[2022 年の本票](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/2022/opendata_2022.html)を、[コード表](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/2022/opendata_2022.html)をもとに読みやすい形式（GIS データ）に変換するプログラムです。
 
-#### 出力結果
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_to-degree.csv`,73.8MB  
+## 実行環境
 
-### csvfile-convert.py
-- 十進法度単位に変換した本票CSVファイル（2022年）をコード表を元に読みやすいデータに変換するプログラムになります。
+- Python 3.8 以上
 
-#### 使用データ
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_to-degree.csv`,73.8MB  
-- コード表`https://github.com/shi-works/traffic-accident-data-2022-converter/tree/main/code`
+## 使い方
 
-hit.csv is based on https://github.com/code4fukui/traffic-accident Thanks!
+以下の順序でスクリプトを実行します。
 
-#### 出力結果
-##### csv形式
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_convert.csv`,227.4MB  
-##### FlatGeobuf形式
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_convert.fgb`,358.9MB
+```
+Step 1: csvfile-to-degree.py   # 緯度経度を10進数に変換・文字コードをUTF-8に変換
+         ↓ honhyo_2022_to-degree.csv
+Step 2: csvfile-convert.py     # コード表をもとに値を読みやすい形式に変換
+         ↓ honhyo_2022_convert.csv
+Step 3: csvfile-merge.py       # 2019〜2022年のデータをマージ（任意）
+         ↓ honhyo_2019-2022_convert.csv
+```
 
-### csvfile-merge.py
-- 2019-2021年のデータと2022年のデータをマージするプログラムになります。
-- 2019-2021年のデータの変換ツールは[こちらのリポジトリ](https://github.com/shi-works/npa-traffic-accident-data-converter)を参照してください。
+---
 
-#### 使用データ
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2021_convert_v2.csv`,722.4MB  
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_convert.csv`,227.4MB
+## Step 1: csvfile-to-degree.py
 
-#### 出力結果
-##### csv形式
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2022_convert.csv`,978.7MB  
-##### FlatGeobuf形式
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2022_convert.fgb`,1.5GB
-##### GeoParquet形式
-- `https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2022_convert.parquet`,94.2MB
+本票 CSV（Shift-JIS）の「地点　緯度（北緯）」と「地点　経度（東経）」を 60 進数から 10 進数度（decimal degrees）に変換し、文字コードを UTF-8 に変換します。
 
-## デモサイト（MapLibre GL JS）
-- 使用データ：[交通事故統計情報のオープンデータ（2019年、2020年、2021年、2022年）の本票（PMTiles形式）](https://github.com/shiwaku/npa-traffic-accident-pmtiles)
-- https://shiwaku.github.io/npa-traffic-accident-map-on-maplibre/
+### 入力データ
 
-## 使用データ及び出力結果のライセンスについて
-本データセットは[CC-BY-4.0](https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/traffic-accident/LICENSE)で提供されます。使用の際には本レポジトリへのリンクを提示してください。
+`./data/` フォルダに以下のファイルを配置してください。
 
-また、本データセットは交通事故統計情報のオープンデータ（2019、2020、2021、2022年）の本票を加工して作成したものです。本データセットの使用・加工にあたっては、[警察庁Webサイトの利用規約](https://www.npa.go.jp/rules/index.html)を必ずご確認ください。
+| ファイル | サイズ | ダウンロード |
+|---------|--------|-------------|
+| `honhyo_2022.csv` | 62.8 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/data/honhyo_2022.csv) |
+
+### 実行
+
+```bash
+python csvfile-to-degree.py
+```
+
+### 出力
+
+| ファイル | サイズ |
+|---------|--------|
+| `honhyo_2022_to-degree.csv` | 73.8 MB |
+
+---
+
+## Step 2: csvfile-convert.py
+
+Step 1 の出力ファイルをコード表をもとに読みやすい値に変換します（都道府県名、路線名、天候、事故類型など）。
+
+### 入力データ
+
+Step 1 の出力ファイル（`honhyo_2022_to-degree.csv`）とコード表（`code/` フォルダ）を使用します。
+
+| ファイル | サイズ | ダウンロード |
+|---------|--------|-------------|
+| `honhyo_2022_to-degree.csv` | 73.8 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_to-degree.csv) |
+
+> コード表の「車両の衝突部位」は [Code for FUKUI](https://github.com/code4fukui/traffic-accident) が作成したコード値表を使用しています。
+
+### 実行
+
+```bash
+python csvfile-convert.py
+```
+
+### 出力
+
+| ファイル | サイズ |
+|---------|--------|
+| `honhyo_2022_convert.csv` | 227.4 MB |
+
+---
+
+## Step 3: csvfile-merge.py（任意）
+
+2019〜2022 年の変換済みデータをマージします。
+
+### 入力データ
+
+`./csv/` フォルダに以下のファイルを配置してください。
+
+| ファイル | サイズ | ダウンロード |
+|---------|--------|-------------|
+| `honhyo_2019-2021_convert_v2.csv` | 722.4 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2021_convert_v2.csv) |
+| `honhyo_2022_convert.csv` | 227.4 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_convert.csv) |
+
+> 2019〜2021 年の変換ツール：[npa-traffic-accident-data-converter](https://github.com/shiwaku/npa-traffic-accident-data-converter)
+
+### 実行
+
+```bash
+python csvfile-merge.py
+```
+
+### 出力
+
+**2019〜2022 年のデータをマージしたデータ（4 年間）**
+
+| 形式 | ファイル | サイズ | ダウンロード |
+|------|---------|--------|-------------|
+| CSV | `honhyo_2019-2022_convert.csv` | 978.7 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2022_convert.csv) |
+| GeoParquet | `honhyo_2019-2022_convert.parquet` | 94.2 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2022_convert.parquet) |
+
+GeoParquet への変換は [GDAL/OGR (OSGeo4W)](https://trac.osgeo.org/osgeo4w/) を使用。
+
+```bash
+# CSVからGeoParquetの作成
+ogr2ogr -f "Parquet" honhyo_2019-2022_convert.parquet honhyo_2019-2022_convert.csv -oo X_POSSIBLE_NAMES=地点_経度（東経）_10進数 -oo Y_POSSIBLE_NAMES=地点_緯度（北緯）_10進数 -s_srs EPSG:4326 -t_srs EPSG:4326
+
+# CSVからGeoJSONの作成
+ogr2ogr -f "GeoJSON" honhyo_2019-2022_convert.geojson honhyo_2019-2022_convert.csv -oo X_POSSIBLE_NAMES=地点_経度（東経）_10進数 -oo Y_POSSIBLE_NAMES=地点_緯度（北緯）_10進数 -s_srs EPSG:4326 -t_srs EPSG:4326
+```
+
+PMTiles への変換は [felt/tippecanoe](https://github.com/felt/tippecanoe) を使用。
+
+```bash
+# PMTilesの作成
+tippecanoe -o honhyo_2019-2022_convert.pmtiles honhyo_2019-2022_convert.geojson -pf -pk -P -B12
+```
+
+---
+
+## デモサイト
+
+MapLibre GL JS を使った可視化デモ：[https://shiwaku.github.io/npa-traffic-accident-map/](https://shiwaku.github.io/npa-traffic-accident-map/)
+
+使用データ：交通事故統計情報のオープンデータ（2019〜2024 年）の本票（PMTiles 形式）
+
+---
+
+## ライセンス
+
+本データセットは [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ja) で提供されます。使用の際は本リポジトリへのリンクを提示してください。
+
+本データセットは交通事故統計情報のオープンデータ（2019〜2022 年）の本票を加工して作成したものです。使用・加工にあたっては[警察庁 Web サイトの利用規約](https://www.npa.go.jp/rules/index.html)を必ずご確認ください。
 
 ## 免責事項
+
 利用者が当該データを用いて行う一切の行為について何ら責任を負うものではありません。
+
+## 更新履歴
+
+- **2026/04/08** バグ修正: 一時停止規制_表示（当事者B）のインデックス誤参照を修正
+
+## 活用事例
+
+- 秋田魁新報社 | 秋田の交通事故マップ：[https://www.sakigake.jp/special/maps/traffic-accident/](https://www.sakigake.jp/special/maps/traffic-accident/)
