@@ -39,7 +39,7 @@ Step 3: csvfile-merge.py       # 2019〜2022年のデータをマージ（任意
 ### 実行
 
 ```bash
-python csvfile-to-degree.py
+python scripts/csvfile-to-degree.py
 ```
 
 ### 出力
@@ -67,7 +67,7 @@ Step 1 の出力ファイル（`honhyo_2022_to-degree.csv`）とコード表（`
 ### 実行
 
 ```bash
-python csvfile-convert.py
+python scripts/csvfile-convert.py
 ```
 
 ### 出力
@@ -96,7 +96,7 @@ python csvfile-convert.py
 ### 実行
 
 ```bash
-python csvfile-merge.py
+python scripts/csvfile-merge.py
 ```
 
 ### 出力
