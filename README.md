@@ -34,7 +34,7 @@ Step 3: csvfile-merge.py       # 2019〜2022年のデータをマージ（任意
 
 | ファイル | サイズ | ダウンロード |
 |---------|--------|-------------|
-| `honhyo_2022.csv` | 62.8 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/data/honhyo_2022.csv) |
+| `honhyo_2022.csv` | 62.8 MB | [ダウンロード](https://shi-works.com/pmtiles/traffic-accident/data/honhyo_2022.csv) |
 
 ### 実行
 
@@ -60,7 +60,7 @@ Step 1 の出力ファイル（`honhyo_2022_to-degree.csv`）とコード表（`
 
 | ファイル | サイズ | ダウンロード |
 |---------|--------|-------------|
-| `honhyo_2022_to-degree.csv` | 73.8 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_to-degree.csv) |
+| `honhyo_2022_to-degree.csv` | 73.8 MB | [ダウンロード](https://shi-works.com/pmtiles/traffic-accident/honhyo_2022_to-degree.csv) |
 
 > コード表の「車両の衝突部位」は [Code for FUKUI](https://github.com/code4fukui/traffic-accident) が作成したコード値表を使用しています。
 
@@ -88,8 +88,8 @@ python scripts/csvfile-convert.py
 
 | ファイル | サイズ | ダウンロード |
 |---------|--------|-------------|
-| `honhyo_2019-2021_convert_v2.csv` | 722.4 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2021_convert_v2.csv) |
-| `honhyo_2022_convert.csv` | 227.4 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2022_convert.csv) |
+| `honhyo_2019-2021_convert_v2.csv` | 722.4 MB | [ダウンロード](https://shi-works.com/pmtiles/traffic-accident/honhyo_2019-2021_convert_v2.csv) |
+| `honhyo_2022_convert.csv` | 227.4 MB | [ダウンロード](https://shi-works.com/pmtiles/traffic-accident/honhyo_2022_convert.csv) |
 
 > 2019〜2021 年の変換ツール：[npa-traffic-accident-data-converter](https://github.com/shiwaku/npa-traffic-accident-data-converter)
 
@@ -105,7 +105,7 @@ python scripts/csvfile-merge.py
 
 | 形式 | ファイル | サイズ | ダウンロード |
 |------|---------|--------|-------------|
-| CSV | `honhyo_2019-2022_convert.csv` | 978.7 MB | [ダウンロード](https://xs489works.xsrv.jp/pmtiles-data/traffic-accident/honhyo_2019-2022_convert.csv) |
+| CSV | `honhyo_2019-2022_convert.csv` | 978.7 MB | [ダウンロード](https://shi-works.com/pmtiles/traffic-accident/honhyo_2019-2022_convert.csv) |
 
 ---
 
